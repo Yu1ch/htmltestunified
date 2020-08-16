@@ -1,0 +1,115 @@
+.godowna {
+  left: 46vw;
+  width: 8vw;
+  height: 16vw;
+  top: 70vh;
+  position: absolute;
+}
+
+.godown {
+  left: 0;
+  width: 100%;
+  height: 50%;
+  top: 25%;
+  position: relative;
+  display: flex;
+  justify-content: center;;
+  animation: fade 2.5s cubic-bezier(0.1, 0, 0.15, 1)  infinite;
+}
+
+.down1, .down2 {
+  width: 50%;
+  height: 5%;
+  border-radius: 5% / 50%;
+  position: absolute;
+  top: 60%;
+  transition: background-color .5s;
+}
+
+@keyframes fade {
+  0%{
+    transform: translateY(-50%);
+    opacity: 0;
+  }
+  20% {
+    transform: translateY(-50%);
+    opacity: 1;
+  }
+  85% {
+    transform: translateY(50%);
+    opacity: 1;
+  }
+  100%{
+    transform: translateY(50%);
+    opacity: 0;
+  }
+}
+
+
+
+.down1 {
+  transform: rotate(45deg) translateX(-46%);
+}
+
+.down2 {
+  transform: rotate(315deg) translateX(46%);
+}
+
+.message {
+  width: 50vw;
+  height: 85vh;
+  top: 100%;
+  left: 0;
+  margin: 5vh 5%;
+  position: absolute;
+  display: inline-block;
+  font-size: 20px;
+  padding: 10vh 5vh;
+  letter-spacing: .1vh;
+  line-height: 1.5em;
+}
+
+
+
+@media (prefers-color-scheme: light) {
+    .down1, .down2 {
+      background: black;
+    }
+    .godowna:hover .down1, .godowna:hover .down2{
+      background-color: rgb(195, 115, 111);
+    }
+    @supports (backdrop-filter:blur(5px)) {
+      .message{
+      backdrop-filter: blur(5px);
+      background: rgba(255, 200, 200, 0.5);
+      }
+    }
+
+    @supports not (backdrop-filter:blur(5px)) {
+      .message{
+      background: rgba(200, 170, 170, 0.8);
+      }
+    }
+}
+
+
+@media (prefers-color-scheme: dark) {
+  .down1, .down2 {
+    background: rgba(255, 200, 200, 1);
+  }
+  .godowna:hover .down1, .godowna:hover .down2{
+    background-color: rgb(160, 80, 76);
+  }
+  @supports (backdrop-filter:blur(5px)) {
+    .message{
+    backdrop-filter: blur(5px);
+    background: rgba(122, 70, 70, 0.5);
+    }
+  }
+
+  @supports not (backdrop-filter:blur(5px)) {
+    .message{
+    background: rgba(100, 50, 50, 0.8);
+    }
+  }
+}

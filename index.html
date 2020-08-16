@@ -1,0 +1,619 @@
+<!DOCTYPE html>
+<html dir="ltr" oncontextmenu="return false;" oncopy="return false;">
+
+<head>
+  <meta charset="utf-8">
+  <title>Test Site (For Online Exhibition)</title>
+  <link rel="stylesheet" href="css/common.css">
+  <link rel="stylesheet" href="css/top.css">
+  <link rel="stylesheet" href="css/about.css">
+  <link rel="stylesheet" href="css/works.css">
+  <link rel="stylesheet" href="css/index.css">
+  <script type="text/javascript">
+
+    function loaded() {
+      window.scrollTo(0, 0);
+      setTimeout(function () {
+        const asd = document.querySelector('body');
+        asd.classList.remove("loading");
+        asd.classList.add("loaded");
+        setTimeout(function () {
+          asd.classList.add("headerload");
+          setTimeout(function () {
+            asd.classList.add("menuload");
+          }, 1000);
+        }, 1300);
+      }, 1000);
+    }
+
+    function changesection(classname) {
+      const asd = document.querySelector('body');
+      if (asd.id != classname) {
+        asd.classList.add("transition");
+        asd.classList.remove("headerload");
+        setTimeout(function () {
+          asd.classList.add("atransition");
+          asd.id = classname;
+          window.scrollTo(0, 0);
+          const asdf = document.getElementById('hmbg');
+          asdf.checked = false;
+          asd.classList.remove("noscroll");
+          setTimeout(function () {
+            asd.classList.remove("transition");
+            setTimeout(function () {
+              asd.classList.add("headerload");
+              setTimeout(function () {
+                asd.classList.remove("atransition");
+              }, 1000);
+            }, 1300);
+          }, 100);
+        }, 1100);
+      } else {
+        var currentPostion = document.documentElement.scrollTop || document.body.scrollTop,
+            targetElement = document.getElementsByClassName('header2'),
+            asdf = document.getElementById('hmbg');
+            asdf.checked = false;
+        if (targetElement) {
+          var targetPosition = 0;
+          var startTime = performance.now();
+          var loop = function(nowTime) {
+            var time = nowTime - startTime;
+            var normalizedTime = time / 500;
+            if (normalizedTime < 1) {
+              window.scrollTo(0, currentPostion + ((targetPosition - currentPostion) * {
+                easeInOut: t => t < .5 ? 4 * t * t * t : (t - 1) * (2 * t - 2) * (2 * t - 2) + 1
+              }.easeInOut(normalizedTime)));
+              requestAnimationFrame(loop);
+            } else {
+              window.scrollTo(0, targetPosition);
+            }
+          }
+          requestAnimationFrame(loop);
+        }
+      }
+    }
+
+    function portraittransition() {
+      let asd = document.querySelector('body');
+      asd.classList.add("btransition");
+      setTimeout(function () {
+        asd.classList.remove("btransition");
+      }, 1111);
+    }
+
+    function disablescroll() {
+      const asd = document.querySelector('body');
+      asd.classList.add("noscroll");
+    }
+
+    function enablescroll() {
+      const asd = document.querySelector('body');
+      asd.classList.remove("noscroll");
+    }
+
+    document.onkeydown = function(e) {
+      if (event.keyCode == 123) {
+        return false;
+      }
+      if (e.ctrlKey && e.shiftKey && e.keyCode == 'I'.charCodeAt(0)) {
+        return false;
+      }
+      if (e.ctrlKey && e.shiftKey && e.keyCode == 'C'.charCodeAt(0)) {
+        return false;
+      }
+      if (e.ctrlKey && e.shiftKey && e.keyCode == 'J'.charCodeAt(0)) {
+        return false;
+      }
+      if (e.ctrlKey && e.keyCode == 'U'.charCodeAt(0)) {
+        return false;
+      }
+    }
+
+    // イージング関数
+    var Ease = {
+      easeInOut: t => t < .5 ? 4 * t * t * t : (t - 1) * (2 * t - 2) * (2 * t - 2) + 1
+    }
+
+    // アニメーションの Duration の設定
+    var duration = 700;
+
+    window.addEventListener('DOMContentLoaded', () => {
+      // スムーススクロールのトリガーを取得
+      var smoothScrollTriggers = document.querySelectorAll('a[href^="#"]');
+      smoothScrollTriggers.forEach(function(smoothScrollTrigger) {
+        // トリガーをクリックした時に実行
+        smoothScrollTrigger.addEventListener('click', function(e) {
+          // href属性の値を取得
+          var href = smoothScrollTrigger.getAttribute('href');
+          // 現在のスクロール位置を取得（クロスブラウザに対応）
+          var currentPostion = document.documentElement.scrollTop || document.body.scrollTop;
+          // スクロール先の要素を取得
+          var targetElement = document.getElementById(href.replace('#', ''));
+          // スクロール先の要素が存在する場合はスムーススクロールを実行
+          if (targetElement) {
+            // デフォルトのイベントアクションをキャンセル
+            e.preventDefault();
+            e.stopPropagation();
+            // スクロール先の要素の位置を取得
+            var targetPosition = window.pageYOffset + targetElement.getBoundingClientRect().top; // headerと余白の分だけずらす
+            // スタート時点の時間を取得
+            var startTime = performance.now();
+            // アニメーションのループを定義
+            var loop = function(nowTime) {
+              // スタートからの経過時間を取得
+              var time = nowTime - startTime;
+              // duration を1とした場合の経過時間を計算
+              var normalizedTime = time / duration;
+              // duration に経過時間が達していない場合はアニメーションを実行
+              if (normalizedTime < 1) {
+                // 経過時間とイージングに応じてスクロール位置を変更
+                window.scrollTo(0, currentPostion + ((targetPosition - currentPostion) * Ease.easeInOut(normalizedTime)));
+                // アニメーションを継続
+                requestAnimationFrame(loop);
+                // duration に経過時間が達したら、アニメーションを終了
+              } else {
+                window.scrollTo(0, targetPosition);
+              }
+            }
+            // アニメーションをスタート
+            requestAnimationFrame(loop);
+          }
+        });
+      });
+    });
+  </script>
+</head>
+
+<body onload="loaded()" class="loading" id="top">
+  <input type="checkbox" id="hmbg">
+  <div class="bg"></div>
+  <div class="header" id="intro">
+    <div class="header2">
+      <div class="link" onClick="changesection('top');portraittransition()">
+        <svg viewBox="0 0 140 60">
+          <path
+            d="M 3.7882689,51.882867 25.61445,8.3637275 47.440628,51.882867 l 3.568901,0.01751 V 8.4247585 H 78.03242 c 1.444951,0 11.493891,1.047634 11.493891,11.7501565 0,10.702502 -10.02659,11.625819 -10.02659,11.625819 l 9.94845,20.14319 21.798269,-9.1e-5 V 16.196027 H 93.699911 V 8.4247585 H 136.4352" />
+        </svg>
+        <h1>
+          ONLINE ART MUSEUM
+        </h1>
+      </div>
+
+      <nav class="sample-nav">
+        <ul>
+          <li class="link" onClick="changesection('about')">ABOUT<span></span> </li>
+          <li class="link" onClick="changesection('works')">WORKS<span></span> </li>
+          <li class="link" onClick="changesection('index')">INDEX<span></span> </li>
+        </ul>
+      </nav>
+      <label for="hmbg" onclick="disablescroll()">
+        <div class="hmbg">
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+      </label>
+    </div>
+    <div class="links">
+      <label for="hmbg" onclick="enablescroll()">
+        <div class="cross">
+          <span></span>
+          <span></span>
+        </div>
+      </label>
+      <span onClick="changesection('top')">TOP</span><br>
+      <span onClick="changesection('about')">ABOUT</span><br>
+      <span onClick="changesection('works')">WORKS</span><br>
+      <span onClick="changesection('index')">INDEX</span><br>
+    </div>
+  </div>
+
+  <div class="intro3" id="intro">
+  </div>
+  <div class="intro2" id="intro">
+  </div>
+  <div class="intro" id="intro">
+    <svg viewBox="0 0 140 60" class="logo">
+      <path
+        d="M 3.7882689,51.882867 25.61445,8.3637275 47.440628,51.882867 l 3.568901,0.01751 V 8.4247585 H 78.03242 c 1.444951,0 11.493891,1.047634 11.493891,11.7501565 0,10.702502 -10.02659,11.625819 -10.02659,11.625819 l 9.94845,20.14319 21.798269,-9.1e-5 V 16.196027 H 93.699911 V 8.4247585 H 136.4352" />
+    </svg>
+    <svg viewBox="0 0 297 210" class="loader">
+      <path class="wall"
+         d="M 0,0 H 297 Z M 297,210 H 0 Z"/>
+      <path class="pong"
+         d="M 23.621728,104.86785 128.5,0 275.37828,146.86785 212.51042,209.7357 23.621728,20.847007 44.479157,-0.01042107 254.22527,209.7357 275.37828,188.58271 86.785139,0 23.621728,63.15299 170.20443,209.7357 275.37828,104.56186 170.80598,-0.01042107 23.621728,147.76385 85.003554,209.7357 275.37828,19.360987 256.00686,0 46.260742,209.7357 23.621728,187.09668 210.72883,0 275.37828,64.639012 130.28158,209.7357 Z" />
+      <path class="p1"
+         d="M 19.621728,0 V 210" />
+      <path class="p2"
+          d="M 279.37827,0 V 210" />
+    </svg>
+    <div class="loadingtext">Loading...</div>
+  </div>
+
+  <div class="Top" id="section">
+    <a href="#message">
+      <div class="godowna">
+        <div class="godown">
+          <div class="down1"></div>
+          <div class="down2"></div>
+        </div>
+      </div>
+    </a>
+    <div class="message" id="message">
+      <h1>ごあいさつ</h1><br><br>
+      いろはにほへと<br>
+      ちりぬるを<br>
+      わかよたれそ<br>
+      つねならむ<br>
+      うゐのおくやま<br>
+      けふくれば<br>
+      あさきゆめみし<br>
+      よゑもせす<br>
+      ●●●●年●月某日　●●●
+    </div>
+  </div>
+
+  <div class="About" id="section">
+    <div class="about">
+      <h1>-About-</h1>
+      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis
+        aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+    </div>
+  </div>
+
+  <div class="Works" id="section">
+
+    <div class="preview">
+      <input type="radio" name="select" id="close" class="checkbox" checked onclick="enablescroll()">
+      <input type="checkbox" id="description" checked>
+      <input type="radio" name="select" id="chk1" class="checkbox" onclick="disablescroll()">
+      <label for="chk1">
+        <div class="image1">
+          <img src="images/1.jpg" alt="">
+          <div class="cover1"></div>
+          <span>
+            <h1>Title</h1>
+            <h2>Grade/Author</h2>
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+            </p>
+          </span>
+        </div>
+      </label>
+      <input type="radio" name="select" id="chk2" class="checkbox" onclick="disablescroll()">
+      <label for="chk2">
+        <div class="image2">
+          <img src="images/2.jpg" alt="">
+          <div class="cover2"></div>
+          <span>
+            <h1>Title</h1>
+            <h2>Grade/Author</h2>
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+            </p>
+          </span>
+        </div>
+      </label>
+      <input type="radio" name="select" id="chk3" class="checkbox" onclick="disablescroll()">
+      <label for="chk3">
+        <div class="image3">
+          <img src="images/3.jpg" alt="">
+          <div class="cover3"></div>
+          <span>
+            <h1>Title</h1>
+            <h2>Grade/Author</h2>
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+            </p>
+          </span>
+        </div>
+      </label>
+      <input type="radio" name="select" id="chk4" class="checkbox" onclick="disablescroll()">
+      <label for="chk4">
+        <div class="image4">
+          <img src="images/4.jpg" alt="">
+          <div class="cover4"></div>
+          <span>
+            <h1>Title</h1>
+            <h2>Grade/Author</h2>
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+            </p>
+          </span>
+        </div>
+      </label>
+      <input type="radio" name="select" id="chk5" class="checkbox" onclick="disablescroll()">
+      <label for="chk5">
+        <div class="image5">
+          <img src="images/5.jpg" alt="">
+          <div class="cover5"></div>
+          <span>
+            <h1>Title</h1>
+            <h2>Grade/Author</h2>
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+            </p>
+          </span>
+        </div>
+      </label>
+      <input type="radio" name="select" id="chk6" class="checkbox" onclick="disablescroll()">
+      <label for="chk6">
+        <div class="image6">
+          <img src="images/6.jpg" alt="">
+          <div class="cover6"></div>
+          <span>
+            <h1>Title</h1>
+            <h2>Grade/Author</h2>
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+            </p>
+          </span>
+        </div>
+      </label>
+      <input type="radio" name="select" id="chk7" class="checkbox" onclick="disablescroll()">
+      <label for="chk7">
+        <div class="image7">
+          <img src="images/7.jpg" alt="">
+          <div class="cover7"></div>
+          <span>
+            <h1>Title</h1>
+            <h2>Grade/Author</h2>
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+            </p>
+          </span>
+        </div>
+      </label>
+      <input type="radio" name="select" id="chk8" class="checkbox" onclick="disablescroll()">
+      <label for="chk8">
+        <div class="image8">
+          <img src="images/8.jpg" alt="">
+          <div class="cover8"></div>
+          <span>
+            <h1>Title</h1>
+            <h2>Grade/Author</h2>
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+            </p>
+          </span>
+        </div>
+      </label>
+      <input type="radio" name="select" id="chk9" class="checkbox" onclick="disablescroll()">
+      <label for="chk9">
+        <div class="image9">
+          <img src="images/9.jpg" alt="">
+          <div class="cover9"></div>
+          <span>
+            <h1>Title</h1>
+            <h2>Grade/Author</h2>
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+            </p>
+          </span>
+        </div>
+      </label>
+      <input type="radio" name="select" id="chk10" class="checkbox" onclick="disablescroll()">
+      <label for="chk10">
+        <div class="image10">
+          <img src="images/10.jpg" alt="">
+          <div class="cover10"></div>
+          <span>
+            <h1>Title</h1>
+            <h2>Grade/Author</h2>
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+            </p>
+          </span>
+        </div>
+      </label>
+      <input type="radio" name="select" id="chk11" class="checkbox" onclick="disablescroll()">
+      <label for="chk11">
+        <div class="image11">
+          <img src="images/11.jpg" alt="">
+          <div class="cover11"></div>
+          <span>
+            <h1>Title</h1>
+            <h2>Grade/Author</h2>
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+            </p>
+          </span>
+        </div>
+      </label>
+      <input type="radio" name="select" id="chk12" class="checkbox" onclick="disablescroll()">
+      <label for="chk12">
+        <div class="image12">
+          <img src="images/12.jpg" alt="">
+          <div class="cover12"></div>
+          <span>
+            <h1>Title</h1>
+            <h2>Grade/Author</h2>
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+            </p>
+          </span>
+        </div>
+      </label>
+      <input type="radio" name="select" id="chk13" class="checkbox" onclick="disablescroll()">
+      <label for="chk13">
+        <div class="image13">
+          <img src="images/13.jpg" alt="">
+          <div class="cover13"></div>
+          <span>
+            <h1>Title</h1>
+            <h2>Grade/Author</h2>
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+            </p>
+          </span>
+        </div>
+      </label>
+      <input type="radio" name="select" id="chk14" class="checkbox" onclick="disablescroll()">
+      <label for="chk14">
+        <div class="image14">
+          <img src="images/14.jpg" alt="">
+          <div class="cover14"></div>
+          <span>
+            <h1>Title</h1>
+            <h2>Grade/Author</h2>
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+            </p>
+          </span>
+        </div>
+      </label>
+      <input type="radio" name="select" id="chk15" class="checkbox" onclick="disablescroll()">
+      <label for="chk15">
+        <div class="image15">
+          <img src="images/15.jpg" alt="">
+          <div class="cover15"></div>
+          <span>
+            <h1>Title</h1>
+            <h2>Grade/Author</h2>
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+            </p>
+          </span>
+        </div>
+      </label>
+      <input type="radio" name="select" id="chk16" class="checkbox" onclick="disablescroll()">
+      <label for="chk16">
+        <div class="image16">
+          <img src="images/16.jpg" alt="">
+          <div class="cover16"></div>
+          <span>
+            <h1>Title</h1>
+            <h2>Grade/Author</h2>
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+            </p>
+          </span>
+        </div>
+      </label>
+      <input type="radio" name="select" id="chk17" class="checkbox" onclick="disablescroll()">
+      <label for="chk17">
+        <div class="image17">
+          <img src="images/17.jpg" alt="">
+          <div class="cover9"></div>
+          <span>
+            <h1>Title</h1>
+            <h2>Grade/Author</h2>
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+            </p>
+          </span>
+        </div>
+      </label>
+      <input type="radio" name="select" id="chk18" class="checkbox" onclick="disablescroll()">
+      <label for="chk18">
+        <div class="image18">
+          <img src="images/18.jpg" alt="">
+          <div class="cover10"></div>
+          <span>
+            <h1>Title</h1>
+            <h2>Grade/Author</h2>
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+            </p>
+          </span>
+        </div>
+      </label>
+      <input type="radio" name="select" id="chk19" class="checkbox" onclick="disablescroll()">
+      <label for="chk19">
+        <div class="image19">
+          <img src="images/19.jpg" alt="">
+          <div class="cover11"></div>
+          <span>
+            <h1>Title</h1>
+            <h2>Grade/Author</h2>
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+            </p>
+          </span>
+        </div>
+      </label>
+      <input type="radio" name="select" id="chk20" class="checkbox" onclick="disablescroll()">
+      <label for="chk20">
+        <div class="image20">
+          <img src="images/20.jpg" alt="">
+          <div class="cover12"></div>
+          <span>
+            <h1>Title</h1>
+            <h2>Grade/Author</h2>
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+            </p>
+          </span>
+        </div>
+      </label>
+      <input type="radio" name="select" id="chk21" class="checkbox" onclick="disablescroll()">
+      <label for="chk21">
+        <div class="image21">
+          <img src="images/21.jpg" alt="">
+          <div class="cover13"></div>
+          <span>
+            <h1>Title</h1>
+            <h2>Grade/Author</h2>
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+            </p>
+          </span>
+        </div>
+      </label>
+      <input type="radio" name="select" id="chk22" class="checkbox" onclick="disablescroll()">
+      <label for="chk22">
+        <div class="image22">
+          <img src="images/22.jpg" alt="">
+          <div class="cover14"></div>
+          <span>
+            <h1>Title</h1>
+            <h2>Grade/Author</h2>
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+            </p>
+          </span>
+        </div>
+      </label>
+      <input type="radio" name="select" id="chk23" class="checkbox" onclick="disablescroll()">
+      <label for="chk23">
+        <div class="image23">
+          <img src="images/23.jpg" alt="">
+          <div class="cover15"></div>
+          <span>
+            <h1>Title</h1>
+            <h2>Grade/Author</h2>
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+            </p>
+          </span>
+        </div>
+      </label>
+      <input type="radio" name="select" id="chk24" class="checkbox" onclick="disablescroll()">
+      <label for="chk24">
+        <div class="image24 portrait">
+          <img src="images/24.jpg" alt="">
+          <div class="cover16"></div>
+          <span>
+            <h1>Title</h1>
+            <h2>Grade/Author</h2>
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+            </p>
+          </span>
+        </div>
+      </label>
+      <label for="close" class="close">
+          <div class="close1"></div>
+          <div class="close2"></div>
+      </label>
+      <label for="description" class="description">
+          <div class="descriptiona">
+            <div class="description1"></div>
+            <div class="description2"></div>
+            <div class="description3"></div>
+          </div>
+      </label>
+      <div class="backdrop"></div>
+      <div class="cover"></div>
+    </div>
+  </div>
+
+  <div class="Index" id="section">
+      <div class="index">
+        <p>
+          <h1>-Index-</h1>
+        </p>
+        <p>
+          <h2>Production</h2>●●●/●●●●●/●●●/●●●●
+        </p>
+        <p>
+          <h2>Works</h2>●●●
+        </p>
+        <p>
+          <h2>Web Design</h2>●●●●●/●●●●
+        </p>
+        <p>
+          <h2>Photography</h2>●●●/●●●●
+        </p>
+      </div>
+    </div>
+
+</body>
+
+</html>

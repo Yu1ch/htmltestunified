@@ -1,0 +1,417 @@
+.preview {
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  height: auto;
+  padding: 20vh 5vw;
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  align-content: center;
+  justify-content: center;
+}
+
+.preview>label:not(.close):not(.description)>div {
+  position: relative;
+  width: 24vw;
+  height: 24vw;
+  max-width: 27vh;
+  max-height: 27vh;
+  margin: 1vw;
+  overflow: hidden;
+  transition: box-shadow .3s;
+}
+
+.preview>label:not(.close):not(.description)>div>div {
+  position: absolute;
+  width: 100vw;
+  height: 100%;
+  cursor: zoom-in;
+  transition: background .4s;
+}
+
+.preview>label:not(.close):not(.description)>div:hover {
+
+}
+
+.preview img {
+  opacity: 1;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  transition: 0 .25s;
+  animation: .5s image;
+}
+
+.preview div:not(.portrait) img {
+  height: 100%;
+}
+
+.preview .portrait img {
+  width: 100%;
+}
+
+.backdrop {
+  width: 100vw;
+  height: 100%;
+  position: fixed;
+  z-index: 1;
+  animation: slidea .5s both;
+}
+
+.checkbox:not(#close):checked~.backdrop {
+  animation: slideb .5s forwards;
+}
+
+@keyframes slideb {
+  to {
+    left: 0;
+    bottom: 0;
+  }
+}
+
+.checkbox:not(#close):checked~.cover {
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  width: 100vw;
+  height: 100%;
+  position: fixed;
+  background: none;
+  z-index: 3;
+}
+
+.checkbox:not(#close):checked + label img {
+  transition: top .5s,
+              width .5s,
+              right .5s;
+  animation: .7s image2;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  width: 100%;
+  height: 100%;
+  margin: auto;
+  position: fixed;
+  object-fit: contain;
+  z-index: 2;
+  transform: translate(0, 0);
+  opacity: 1;
+}
+
+@keyframes image {
+  0% {
+    opacity: 1;
+  }
+
+  25% {
+    opacity: 0;
+  }
+
+  75% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes image2 {
+  0% {
+    opacity: 1;
+    position: absolute;
+    height: 100%;
+    width: auto;
+    top: 50%;
+    left: 50%;
+    bottom: inherit;
+    transform: translate(-50%, -50%);
+  }
+
+  35% {
+    opacity: 0;
+    position: absolute;
+    height: 100%;
+    width: auto;
+    top: 50%;
+    left: 50%;
+    bottom: inherit;
+    transform: translate(-50%, -50%);
+  }
+
+  70% {
+    left: 0;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    height: 100vh;
+    margin: auto;
+    position: fixed;
+    object-fit: contain;
+    z-index: 2;
+    transform: translate(0, 0);
+  }
+
+  75% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
+
+.close, .description {
+  width: 7vh;
+  height: 7vh;
+  position: fixed;
+  cursor: pointer;
+  z-index: 5;
+  top: 3%;
+  display: flex;
+  transition: top .5s;
+  border-radius: 50%;
+  right: -10vh;
+  justify-content: center;
+  align-items: center;
+  background: rgba(255, 255, 255, .3);
+  transition: background .5s;
+}
+
+.close {
+  cursor: zoom-out;
+    animation: iconsa .5s;
+}
+
+.description {
+  cursor: pointer;
+    animation: iconsb .5s;
+}
+
+.close:hover, .description:hover {
+  background: white;
+  transition: background .5s;
+}
+
+.checkbox:not(#close):checked ~ .close {
+  right: 5vw;
+  animation: icons1 .5s;
+}
+
+.checkbox:not(#close):checked ~ .description {
+  right: calc(3vw + 14vh);
+  animation: icons2 .5s;
+}
+
+@keyframes iconsa {
+  from {
+    right: 5vw;
+  }
+  to {
+    right: -10vh;
+  }
+}
+
+@keyframes iconsb {
+  from {
+    right: calc(3vw + 14vh);
+  }
+  to {
+    right: -10vh;
+  }
+}
+
+@keyframes icons1 {
+  from {
+    right: -10vh;
+  }
+  to {
+    right: 5vw;
+  }
+}
+
+@keyframes icons2 {
+  from {
+    right: -10vh;
+  }
+  to {
+    right: calc(3vw + 14vh);
+  }
+}
+
+.close1, .close2 {
+  width: 70%;
+  height: 0.2vh;
+  background: black;
+  position: absolute;
+  border-radius: 0.175vh;
+}
+
+.close1 {
+  transform: rotate(45deg);
+}
+
+.close2 {
+  transform: rotate(-45deg);
+}
+
+.descriptiona {
+  width: 55%;
+  height: 65%;
+  border: 0.2vh black solid;
+  border-radius: 10%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.description1, .description2, .description3 {
+  width: 60%;
+  height: 4%;
+  background: black;
+  position: relative;
+  margin: 12.5% 0;
+  border-radius: 50% 0.03%;
+}
+
+.preview>label:not(.close):not(.description) span {
+  position: fixed;
+  background: rgba(217, 198, 198, .7);
+  cursor: default;
+  z-index: 4;
+  overflow: auto;
+  animation: descriptiona .5s;
+}
+
+#description:checked~.checkbox:not(#close):checked + label span {
+  right: 0;
+  top: 0;
+  animation: description .5s;
+}
+
+@media all and (orientation: landscape) {
+  .preview>label:not(.close):not(.description) span {
+    right: -33%;
+    top: 0;
+    width: 33%;
+    height: 100vh;
+    padding: calc(3vw + 9vh) 3vw;
+  }
+
+  .backdrop {
+    left: 100vw;
+    top: 0;
+    bottom: 0;
+  }
+
+  @keyframes slidea {
+    from {
+      left: 0;
+    }
+    to {
+      left: 100vw;
+    }
+  }
+
+
+  #description:checked~.checkbox:not(#close):checked + label img {
+    width: 67%;
+    right: 33vw;
+    transition: width .5s,
+                right .5s;
+  }
+
+  @keyframes description {
+    from {
+      right: -33%
+    }
+    to {
+      right: 0;
+    }
+  }
+
+  @keyframes descriptiona {
+    from {
+      right: 0;
+    }
+    to {
+      right: -33%;
+    }
+  }
+}
+
+@media all and (orientation: portrait) {
+  .preview>label:not(.close):not(.description) span {
+    left: 0;
+    top: -25vh;
+    width: 100%;
+    height: 25vh;
+    padding: 3vw calc(3vw + 9vh) 3vw 3vw;
+  }
+
+  .backdrop {
+    left: 0;
+    right: 0;
+    bottom: 100vh;
+  }
+
+  @keyframes slidea {
+    from {
+      bottom: 0;
+    }
+    to {
+      bottom: 100vh;
+    }
+  }
+
+  #description:checked~.checkbox:not(#close):checked + label img {
+    width: 100vw;
+    top: 25vh;
+    transition: top .5s;
+  }
+
+  @keyframes description {
+    from {
+      top: -25vh;
+    }
+    to {
+      top: 0;
+    }
+  }
+
+  @keyframes descriptiona {
+    from {
+      top: 0;
+    }
+    to {
+      top: -25vh;
+    }
+  }
+}
+
+
+@media (prefers-color-scheme: light) {
+  .backdrop {
+    background: rgba(117, 53, 63, 1);
+}
+
+  .preview {
+    background: rgba(255, 222, 222, 0.5);
+  }
+}
+
+@media (prefers-color-scheme: dark) {
+  .backdrop {
+    background: rgba(43, 23, 23, 1);
+}
+  .preview {
+    background: rgba(83, 23, 23, 0.5);
+  }
+}
