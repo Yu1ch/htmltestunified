@@ -355,6 +355,7 @@ h1 {
     width: 40vh;
     font-weight: bolder;
     cursor: pointer;
+    margin: 2vh;
   }
 
   .cross {
@@ -617,8 +618,7 @@ input[type="checkbox"] {
     .header{
     background: rgba(100, 50, 50, 0.8);
     }
-  }
-
+}
   .intro {
     background: rgba(24, 20, 22, 1);
   }
@@ -642,4 +642,13 @@ input[type="checkbox"] {
   ::-webkit-scrollbar-thumb:hover {
     background: rgb(101, 57, 57);
   }
+}
+
+.footer {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  text-align: center;
+  margin: auto;
+  z-index: 100;
 }
