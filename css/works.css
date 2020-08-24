@@ -87,7 +87,8 @@
 .checkbox:not(#close):checked + label img {
   transition: top .5s,
               width .5s,
-              right .5s;
+              right .5s,
+              height .5s;
   animation: .7s image2;
   left: 0;
   top: 0;
@@ -196,7 +197,6 @@
 
 .close:hover, .description:hover {
   background: white;
-  transition: background .5s;
 }
 
 .checkbox:not(#close):checked ~ .close {
@@ -278,12 +278,11 @@
   background: black;
   position: relative;
   margin: 12.5% 0;
-  border-radius: 50% 0.03%;
+  border-radius: 50% / 0.03%;
 }
 
 .preview>label:not(.close):not(.description) span {
   position: fixed;
-  background: rgba(217, 198, 198, .7);
   cursor: default;
   z-index: 4;
   overflow: auto;
@@ -371,10 +370,16 @@
     }
   }
 
-  #description:checked~.checkbox:not(#close):checked + label img {
+  #description:checked~.checkbox:not(#close):checked + label div:not(.portrait) img {
     width: 100vw;
     top: 25vh;
     transition: top .5s;
+  }
+
+  #description:checked~.checkbox:not(#close):checked + label .portrait img {
+    height: 75vh;
+    top: 25vh;
+    transition: height .5s, top .5s;
   }
 
   @keyframes description {
@@ -400,10 +405,14 @@
 @media (prefers-color-scheme: light) {
   .backdrop {
     background: rgba(117, 53, 63, 1);
-}
+  }
 
   .preview {
     background: rgba(255, 222, 222, 0.5);
+  }
+
+  .preview>label:not(.close):not(.description) span {
+    background: rgba(217, 198, 198, .7);
   }
 }
 
@@ -413,5 +422,25 @@
 }
   .preview {
     background: rgba(83, 23, 23, 0.5);
+  }
+
+  .preview>label:not(.close):not(.description) span {
+    background: rgba(75, 35, 39, 1);
+  }
+
+  .close, .description {
+    background: rgba(23, 23, 23, 0.3);
+  }
+
+  .close1, .close2, .description1, .description2, .description3 {
+    background: white;
+  }
+
+  .descriptiona {
+    border-color: white;
+  }
+
+  .close:hover, .description:hover {
+    background: rgba(23, 23, 23, 1);
   }
 }
